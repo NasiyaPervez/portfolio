@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,6 +29,7 @@ jobs:
           path: ./dist
 
   deploy:
+    name: Deploy
     environment:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
