@@ -4,26 +4,33 @@ import Base from '../layouts/Base.astro';
 
 <Base title="Nasiya Pervez">
   <section class="hero">
-    <h1>Nasiya Pervez</h1>
-    <h2>Data & Supply Chain Professional</h2>
-    
-    <div class="tags">
-      <span class="tag">Supply Chain</span>
-      <span class="tag">SAP ERP</span>
-      <span class="tag">Data Analysis</span>
-      <span class="tag">Machine Learning</span>
-      <span class="tag">Python</span>
-    </div>
-    
-    <p class="bio">
-      Hi, I'm Nasiya — a data and supply chain professional passionate about 
-      leveraging technology to optimize operations. I write about data science, 
-      machine learning, and supply chain management on my blog.
-    </p>
-    
-    <div class="cta-buttons">
-      <a href="/contact" class="btn btn-primary">Contact Me</a>
-      <a href="/blog" class="btn btn-secondary">Read Blog</a>
+    <div class="hero-content">
+      <div class="text">
+        <h1>Nasiya Pervez</h1>
+        <h2>Data-Driven Operations Research & Business Analytics</h2>
+        
+        <div class="tags">
+          <span class="tag">Operations Research</span>
+          <span class="tag">Business Analytics</span>
+          <span class="tag">Data Analysis</span>
+          <span class="tag">SAP ERP</span>
+          <span class="tag">Python</span>
+          <span class="tag">Machine Learning</span>
+        </div>
+        
+        <p class="bio">
+          👋 Hi, thank you for visiting my website. I'm a data-driven operations research and business analytics professional with experience in business development, talent acquisition, and strategic growth. I enjoy turning complex datasets into insights that drive smarter decisions and meaningful outcomes.
+        </p>
+        
+        <div class="cta-buttons">
+          <a href="/contact" class="btn btn-primary">Contact Me</a>
+          <a href="/blog" class="btn btn-secondary">Read Blog</a>
+        </div>
+      </div>
+      
+      <div class="photo">
+        <img src="/images/profile.jpg" alt="Nasiya Pervez" />
+      </div>
     </div>
   </section>
 
@@ -32,11 +39,42 @@ import Base from '../layouts/Base.astro';
       padding-top: 40px;
     }
     
+    .hero-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 60px;
+    }
+    
+    .text {
+      flex: 1;
+    }
+    
+    .photo {
+      flex-shrink: 0;
+    }
+    
+    .photo img {
+      width: 280px;
+      height: 280px;
+      border-radius: 20px;
+      object-fit: cover;
+      border: 2px solid #1a1a1a;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .photo img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 40px rgba(255, 255, 255, 0.1);
+    }
+    
     .tags {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
       margin: 24px 0;
+      animation: fadeInUp 0.6s ease-out backwards;
+      animation-delay: 0.4s;
     }
     
     .tag {
@@ -46,19 +84,28 @@ import Base from '../layouts/Base.astro';
       border-radius: 20px;
       font-size: 0.85rem;
       color: #888;
+      transition: all 0.3s ease;
+    }
+    
+    .tag:hover {
+      background: #2a2a2a;
+      color: #fff;
+      border-color: #444;
     }
     
     .bio {
       font-size: 1.1rem;
       line-height: 1.8;
       color: #999;
-      max-width: 600px;
+      max-width: 500px;
     }
     
     .cta-buttons {
       display: flex;
       gap: 16px;
       margin-top: 32px;
+      animation: fadeInUp 0.6s ease-out backwards;
+      animation-delay: 0.5s;
     }
     
     .btn {
@@ -77,6 +124,7 @@ import Base from '../layouts/Base.astro';
     
     .btn-primary:hover {
       background: #ddd;
+      transform: translateY(-2px);
     }
     
     .btn-secondary {
@@ -87,6 +135,37 @@ import Base from '../layouts/Base.astro';
     
     .btn-secondary:hover {
       background: #2a2a2a;
+      transform: translateY(-2px);
+    }
+    
+    @media (max-width: 768px) {
+      .hero-content {
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+      
+      .text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .tags {
+        justify-content: center;
+      }
+      
+      .bio {
+        text-align: center;
+      }
+      
+      .cta-buttons {
+        justify-content: center;
+      }
+      
+      .photo img {
+        width: 200px;
+        height: 200px;
+      }
     }
   </style>
 </Base>
