@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import { getSubstackPosts } from '../lib/substack';
+
+const posts = await getSubstackPosts();
+---
+
+<Base title="Blog">
+  <h1>My Blog</h1>
+  
+  <div class="blog-grid">
+    {posts.map((post, index) => (
+      <article class="blog-card" style={`animation-delay: ${0.2 + index * 0.1}s`}>
+        <h2><a href={post.link}>{post.title}</a></h2>
+        <time>{new Date(post.pubDate).toLocaleDateString()}</time>
+        <p>{post.description}</p>
+      </article>
+    ))}
+  </div>
+
+  <style>
+    .blog-grid {
+      display: grid;
+      gap: 24px;
+      margin-top: 40px;
+    }
+    
+    .blog-card {
+      padding: 28px;
+      background: #111;
+      border-radius: 12px;
+      border: 1px solid #1a1a1a;
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.6s ease-out backwards;
+    }
+    
+    .blog-card:hover {
+      border-color: #333;
+      transform: translateY(-4px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+    
+    .blog-card h2 {
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+    }
+    
+    .blog-card h2 a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .blog-card h2 a:hover {
+      color: #aaa;
+    }
+    
+    .blog-card time {
+      color: #555;
+      font-size: 0.85rem;
+    }
+    
+    .blog-card p {
+      margin-top: 14px;
+      color: #777;
+      font-size: 0.95rem;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</Base>

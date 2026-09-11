@@ -1,0 +1,152 @@
+---
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <nav>
+      <a href="/" class="logo">Nasiya Pervez</a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/blog">Blog</a>
+        <a href="/photography">Photography</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </nav>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <div class="footer-content">
+        <p>&copy; 2026 Nasiya Pervez</p>
+        <div class="footer-links">
+          <a href="https://www.linkedin.com/in/nasiyapervez/" target="_blank">LinkedIn</a>
+          <a href="https://github.com/NasiyaPervez" target="_blank">GitHub</a>
+          <a href="mailto:perveznasiya@gmail.com">Email</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: #0a0a0a;
+    color: #e0e0e0;
+    line-height: 1.6;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 40px;
+    background: #0a0a0a;
+    border-bottom: 1px solid #1a1a1a;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .nav-links a {
+    margin-left: 28px;
+    text-decoration: none;
+    color: #888;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    color: #fff;
+  }
+
+  main {
+    min-height: 80vh;
+    padding: 80px 40px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  p {
+    font-size: 1.05rem;
+    color: #999;
+    margin-bottom: 16px;
+  }
+
+  a {
+    color: #fff;
+  }
+
+  footer {
+    border-top: 1px solid #1a1a1a;
+    padding: 30px 40px;
+    background: #0a0a0a;
+  }
+
+  .footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-content p {
+    color: #555;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .footer-links a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #555;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+  }
+
+  .footer-links a:hover {
+    color: #fff;
+  }
+</style>

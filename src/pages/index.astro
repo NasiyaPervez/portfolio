@@ -1,11 +1,92 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Base from '../layouts/Base.astro';
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<Base title="Nasiya Pervez">
+  <section class="hero">
+    <h1>Nasiya Pervez</h1>
+    <h2>Data & Supply Chain Professional</h2>
+    
+    <div class="tags">
+      <span class="tag">Supply Chain</span>
+      <span class="tag">SAP ERP</span>
+      <span class="tag">Data Analysis</span>
+      <span class="tag">Machine Learning</span>
+      <span class="tag">Python</span>
+    </div>
+    
+    <p class="bio">
+      Hi, I'm Nasiya — a data and supply chain professional passionate about 
+      leveraging technology to optimize operations. I write about data science, 
+      machine learning, and supply chain management on my blog.
+    </p>
+    
+    <div class="cta-buttons">
+      <a href="/contact" class="btn btn-primary">Contact Me</a>
+      <a href="/blog" class="btn btn-secondary">Read Blog</a>
+    </div>
+  </section>
+
+  <style>
+    .hero {
+      padding-top: 40px;
+    }
+    
+    .tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 24px 0;
+    }
+    
+    .tag {
+      padding: 6px 14px;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: #888;
+    }
+    
+    .bio {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #999;
+      max-width: 600px;
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary {
+      background: #fff;
+      color: #0a0a0a;
+    }
+    
+    .btn-primary:hover {
+      background: #ddd;
+    }
+    
+    .btn-secondary {
+      background: #1a1a1a;
+      color: #fff;
+      border: 1px solid #2a2a2a;
+    }
+    
+    .btn-secondary:hover {
+      background: #2a2a2a;
+    }
+  </style>
+</Base>

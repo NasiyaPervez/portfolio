@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Photography">
+  <h1>Photography</h1>
+  
+  <p>A collection of my work on VSCO.</p>
+  
+  <a href="https://vsco.co/nasiya-pervez/gallery" target="_blank" class="vsco-button">
+    View Gallery on VSCO
+  </a>
+
+  <style>
+    p {
+      margin-bottom: 0;
+    }
+    
+    .vsco-button {
+      display: inline-block;
+      padding: 14px 28px;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #888;
+      text-decoration: none;
+      border-radius: 8px;
+      margin-top: 30px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.6s ease-out backwards;
+      animation-delay: 0.4s;
+    }
+    
+    .vsco-button:hover {
+      background: #fff;
+      color: #0a0a0a;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</Base>
