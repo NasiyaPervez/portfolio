@@ -2,65 +2,159 @@
 import Base from '../layouts/Base.astro';
 ---
 
-<Base title="About Me">
-  <h1>About Me</h1>
-  
-  <p>
-    Over the past two years, I've supported B2B growth cycles and recruitment strategies that improved lead conversion and talent alignment. My analytical mindset helps me bridge the gap between data, people, and business value.
-  </p>
-  
-  <p>
-    I'm currently pursuing my Master's in Operations Research and Business Analytics at  
-    <strong> Otto von Guericke University, Magdeburg, Germany </strong> and I'm excited about 
-    opportunities where I can apply optimization and analytics to real-world challenges — 
-    especially in environments that value collaboration, innovation, and continuous learning.
-  </p>
+<Base
+  title="About"
+  description="About Nasiya Pervez — operations research & business analytics, supply chain and logistics."
+>
+  <section class="page-head reveal">
+    <p class="eyebrow">About me</p>
+    <h1>Data, people, and decisions</h1>
+  </section>
 
-  <div class="about-links">
-    <a href="https://www.linkedin.com/in/nasiyapervez/" target="_blank" class="about-link">
-      LinkedIn
-    </a>
-    <a href="https://github.com/NasiyaPervez" target="_blank" class="about-link">
-      GitHub
-    </a>
-    <a href="https://vsco.co/nasiya-pervez/gallery" target="_blank" class="about-link">
-      VSCO
-    </a>
-  </div>
+  <section class="section story reveal" style="--d: 0.1s">
+    <p>
+      I'm a data-driven operations research and business analytics professional. I've spent
+      the past two years supporting B2B growth cycles — recruitment strategies and sales
+      pipelines — using data to improve lead conversion and talent alignment. My analytical
+      mindset bridges the gap between data, people, and business value.
+    </p>
+    <p>
+      I'm currently pursuing a Master's in Operations Research and Business Analytics at
+      Otto von Guericke University, Magdeburg, Germany, where I focus on optimization,
+      simulation, and decision support — the methods that power supply chain and logistics
+      planning. I'm learning SAP S/4HANA alongside, and I'm excited about roles where I can
+      apply analytics and optimization to real-world supply chain challenges.
+    </p>
+  </section>
+
+  <section class="section badges reveal" style="--d: 0.15s">
+    <p class="eyebrow">Proof</p>
+    <h2>What I'm building on</h2>
+
+    <div class="badge-card">
+      <h3>MSc Operations Research & Business Analytics</h3>
+      <p class="badge-sub">Otto von Guericke University Magdeburg · 2024 – 2026</p>
+      <div class="chip-row">
+        <span class="chip">Databases (SQL)</span>
+        <span class="chip">AI-Based Decision Support I & II</span>
+        <span class="chip">Sustainable Supply Chain Management</span>
+        <span class="chip">Simulation in Production & Logistics</span>
+        <span class="chip">Optimization Implementation</span>
+      </div>
+    </div>
+
+    <div class="badge-card">
+      <h3>SAP Supply Chain Learning</h3>
+      <p class="badge-sub">SAP Learning Hub · S/4HANA Cloud Public Edition</p>
+      <p class="badge-note">Currently working through implementation & sourcing-and-procurement learning journeys.</p>
+    </div>
+  </section>
+
+  <section class="section languages reveal" style="--d: 0.2s">
+    <p class="eyebrow">Languages</p>
+    <h2>I speak</h2>
+    <div class="lang-list">
+      <div class="lang">
+        <span class="lang-name">English</span>
+        <span class="lang-level">C1 — professional</span>
+      </div>
+      <div class="lang">
+        <span class="lang-name">German</span>
+        <span class="lang-level">A1.1 — learning</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section links reveal" style="--d: 0.25s">
+    <div class="btn-group">
+      <a href="https://www.linkedin.com/in/nasiyapervez/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+      <a href="https://github.com/NasiyaPervez" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+      <a href="https://vsco.co/nasiya-pervez/gallery" target="_blank" rel="noopener" class="btn btn-ghost">VSCO</a>
+    </div>
+  </section>
 
   <style>
-    p {
-      margin-bottom: 20px;
+    .page-head {
+      padding: 24px 0 8px;
     }
-    
-    strong {
-      color: #fff;
+
+    .page-head h1 {
+      max-width: 640px;
     }
-    
-    .about-links {
+
+    .story p {
+      font-size: 1.08rem;
+      max-width: 720px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      margin-bottom: 22px;
+    }
+
+    .badge-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 16px;
+    }
+
+    .badge-card h3 {
+      margin-bottom: 4px;
+    }
+
+    .badge-sub {
+      color: var(--faint);
+      font-size: 0.9rem;
+      margin-bottom: 14px;
+    }
+
+    .badge-note {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    .chip-row {
       display: flex;
-      gap: 20px;
-      margin-top: 40px;
-      animation: fadeInUp 0.6s ease-out backwards;
-      animation-delay: 0.4s;
+      flex-wrap: wrap;
+      gap: 8px;
     }
-    
-    .about-link {
-      padding: 12px 24px;
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      border-radius: 8px;
-      text-decoration: none;
-      color: #888;
-      font-weight: 500;
-      transition: all 0.3s ease;
+
+    .chip {
+      font-size: 0.8rem;
+      color: var(--emerald);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      background: rgba(16, 185, 129, 0.08);
+      border-radius: 20px;
+      padding: 4px 12px;
     }
-    
-    .about-link:hover {
-      background: #fff;
-      color: #0a0a0a;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
+
+    .lang-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      max-width: 520px;
+    }
+
+    .lang {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+    }
+
+    .lang-name {
+      display: block;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+
+    .lang-level {
+      color: var(--muted);
+      font-size: 0.9rem;
     }
   </style>
 </Base>

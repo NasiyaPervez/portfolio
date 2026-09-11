@@ -2,51 +2,68 @@
 import Base from '../layouts/Base.astro';
 ---
 
-<Base title="Photography">
-  <h1>Photography</h1>
-  
-  <p>A collection of my work on VSCO.</p>
-  
-  <a href="https://vsco.co/nasiya-pervez/gallery" target="_blank" class="vsco-button">
-    View Gallery on VSCO
-  </a>
+<Base
+  title="Photography"
+  description="Photography — a gallery of work on VSCO by Nasiya Pervez."
+>
+  <section class="page-head reveal">
+    <p class="eyebrow">Personal</p>
+    <h1>Photography</h1>
+    <p class="lede">An eye behind the numbers — a gallery of what I see outside spreadsheets and dashboards.</p>
+  </section>
+
+  <section class="section gallery reveal" style="--d: 0.15s">
+    <div class="gallery-frame">
+      <div class="frame-content">
+        <h2>View the collection</h2>
+        <p>My latest work lives on VSCO — films, frames, and street moments.</p>
+        <a href="https://vsco.co/nasiya-pervez/gallery" target="_blank" rel="noopener" class="btn btn-primary">
+          Open VSCO gallery
+        </a>
+      </div>
+    </div>
+  </section>
 
   <style>
-    p {
-      margin-bottom: 0;
+    .page-head {
+      padding: 24px 0 8px;
     }
-    
-    .vsco-button {
-      display: inline-block;
-      padding: 14px 28px;
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      color: #888;
-      text-decoration: none;
-      border-radius: 8px;
-      margin-top: 30px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      animation: fadeInUp 0.6s ease-out backwards;
-      animation-delay: 0.4s;
+
+    .lede {
+      max-width: 560px;
+      font-size: 1.05rem;
+      margin-top: 10px;
     }
-    
-    .vsco-button:hover {
-      background: #fff;
-      color: #0a0a0a;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
+
+    .gallery {
+      margin-top: 8px;
     }
-    
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+
+    .gallery-frame {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(59, 130, 246, 0.14));
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 8px;
+    }
+
+    .frame-content {
+      border: 1px dashed var(--border);
+      border-radius: 16px;
+      padding: 72px 32px;
+      text-align: center;
+    }
+
+    .frame-content h2 {
+      margin-bottom: 8px;
+    }
+
+    .frame-content p {
+      max-width: 420px;
+      margin: 0 auto 26px;
+    }
+
+    .frame-content .btn-group {
+      justify-content: center;
     }
   </style>
 </Base>

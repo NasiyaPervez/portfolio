@@ -1,152 +1,415 @@
 ---
 interface Props {
   title: string;
+  description?: string;
 }
-const { title } = Astro.props;
+const { title, description = '' } = Astro.props;
+
+const SITE = 'https://nasiyapervez.com';
+const pageDescription = description || 'Operations research & business analytics, supply chain and logistics — Nasiya Pervez';
 ---
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} · Nasiya Pervez</title>
+    <meta name="description" content={pageDescription} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Nasiya Pervez" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={SITE} />
+    <meta property="og:image" content={`${SITE}/images/profile.jpg`} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   </head>
   <body>
-    <nav>
+    <nav class="site-nav">
       <a href="/" class="logo">Nasiya Pervez</a>
-      <div class="nav-links">
+
+      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-menu">
         <a href="/">Home</a>
         <a href="/about">About</a>
+        <a href="/experience">Experience</a>
         <a href="/blog">Blog</a>
         <a href="/photography">Photography</a>
         <a href="/contact">Contact</a>
       </div>
     </nav>
+
     <main>
       <slot />
     </main>
-    <footer>
-      <div class="footer-content">
-        <p>&copy; 2026 Nasiya Pervez</p>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>&copy; {new Date().getFullYear()} Nasiya Pervez</p>
         <div class="footer-links">
-          <a href="https://www.linkedin.com/in/nasiyapervez/" target="_blank">LinkedIn</a>
-          <a href="https://github.com/NasiyaPervez" target="_blank">GitHub</a>
+          <a href="https://www.linkedin.com/in/nasiyapervez/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/NasiyaPervez" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://nasiyapervez22.substack.com/" target="_blank" rel="noopener">Substack</a>
           <a href="mailto:perveznasiya@gmail.com">Email</a>
         </div>
       </div>
     </footer>
+
+    <script>
+      // Mobile nav toggle
+      const btn = document.querySelector('.hamburger');
+      const menu = document.querySelector('.nav-menu');
+      if (btn && menu) {
+        btn.addEventListener('click', () => {
+          const open = menu.classList.toggle('open');
+          btn.classList.toggle('active', open);
+          btn.setAttribute('aria-expanded', String(open));
+        });
+        menu.querySelectorAll('a').forEach((a) =>
+          a.addEventListener('click', () => {
+            menu.classList.remove('open');
+            btn.classList.remove('active');
+            btn.setAttribute('aria-expanded', 'false');
+          })
+        );
+      }
+
+      // Role word rotator
+      const rotator = document.querySelector('[data-words]');
+      if (rotator) {
+        const words = JSON.parse(rotator.dataset.words || '[]');
+        let i = 0;
+        const tick = () => {
+          rotator.classList.add('fade-out');
+          setTimeout(() => {
+            i = (i + 1) % words.length;
+            rotator.textContent = words[i];
+            rotator.classList.remove('fade-out');
+          }, 250);
+        };
+        setInterval(tick, 2800);
+      }
+
+      // Reveal on scroll
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
   </body>
 </html>
 
 <style is:global>
+  :root {
+    --bg: #0b0e0d;
+    --bg-soft: #111614;
+    --surface: #171c1a;
+    --border: #242d29;
+    --text: #e9efec;
+    --muted: #9aa5a0;
+    --faint: #66726c;
+    --emerald: #10b981;
+    --emerald-dim: #0d8f63;
+    --blue: #3b82f6;
+    --white: #ffffff;
+  }
+
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .logo {
     font-family: 'Space Grotesk', sans-serif;
-    background: #0a0a0a;
-    color: #e0e0e0;
-    line-height: 1.6;
-  }
-
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 24px 40px;
-    background: #0a0a0a;
-    border-bottom: 1px solid #1a1a1a;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  .logo {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #fff;
-    text-decoration: none;
-  }
-
-  .nav-links a {
-    margin-left: 28px;
-    text-decoration: none;
-    color: #888;
-    font-weight: 500;
-    font-size: 0.95rem;
-    transition: color 0.3s ease;
-  }
-
-  .nav-links a:hover {
-    color: #fff;
-  }
-
-  main {
-    min-height: 80vh;
-    padding: 80px 40px;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 12px;
-    font-weight: 700;
-    color: #fff;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    font-weight: 600;
-    color: #fff;
-  }
-
-  p {
-    font-size: 1.05rem;
-    color: #999;
-    margin-bottom: 16px;
   }
 
   a {
-    color: #fff;
+    color: inherit;
+    text-decoration: none;
   }
 
-  footer {
-    border-top: 1px solid #1a1a1a;
-    padding: 30px 40px;
-    background: #0a0a0a;
+  /* ---------- Nav ---------- */
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 32px;
+    background: rgba(11, 14, 13, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
   }
 
-  .footer-content {
-    max-width: 800px;
+  .logo {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color: var(--white);
+  }
+
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nav-menu a {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--muted);
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: color 0.25s ease, background 0.25s ease;
+  }
+
+  .nav-menu a:hover {
+    color: var(--white);
+    background: var(--surface);
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 8px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ---------- Main ---------- */
+  main {
+    width: 100%;
+    max-width: 1100px;
     margin: 0 auto;
+    padding: 40px 32px 80px;
+    min-height: 80vh;
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    line-height: 1.15;
+    color: var(--white);
+    margin-bottom: 14px;
+  }
+
+  h2 {
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    color: var(--white);
+  }
+
+  p {
+    color: var(--muted);
+  }
+
+  .section {
+    padding: 48px 0;
+  }
+
+  .eyebrow {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--emerald);
+    margin-bottom: 10px;
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 13px 26px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--white);
+    transition: all 0.25s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--emerald), var(--blue));
+    border: none;
+    color: var(--white);
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 12px 32px rgba(59, 130, 246, 0.35);
+  }
+
+  .btn-ghost {
+    background: transparent;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--emerald);
+    color: var(--emerald);
+  }
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition-delay: var(--d, 0s);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ---------- Footer ---------- */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    background: var(--bg-soft);
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
   }
 
-  .footer-content p {
-    color: #555;
-    font-size: 0.9rem;
+  .footer-inner p {
+    color: var(--faint);
+    font-size: 0.88rem;
     margin: 0;
   }
 
+  .footer-links {
+    display: flex;
+    gap: 22px;
+  }
+
   .footer-links a {
-    margin-left: 20px;
-    text-decoration: none;
-    color: #555;
-    font-size: 0.9rem;
-    transition: color 0.3s ease;
+    color: var(--faint);
+    font-size: 0.88rem;
+    transition: color 0.25s ease;
   }
 
   .footer-links a:hover {
-    color: #fff;
+    color: var(--emerald);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px) {
+    .site-nav {
+      padding: 16px 20px;
+    }
+
+    .hamburger {
+      display: flex;
+    }
+
+    .nav-menu {
+      position: fixed;
+      top: 62px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4px;
+      padding: 14px 20px 20px;
+      background: var(--bg-soft);
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(-12px);
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .nav-menu.open {
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+    }
+
+    main {
+      padding: 32px 20px 60px;
+    }
+
+    .footer-inner {
+      padding: 24px 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .btn-group {
+      flex-direction: column;
+    }
+
+    .btn {
+      text-align: center;
+    }
   }
 </style>

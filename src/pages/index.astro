@@ -1,171 +1,351 @@
 ---
 import Base from '../layouts/Base.astro';
+import { getSubstackPosts } from '../lib/substack';
+
+const posts = await getSubstackPosts();
+const featured = posts.slice(0, 3);
 ---
 
-<Base title="Nasiya Pervez">
+<Base
+  title="Nasiya Pervez — Supply Chain & Business Analytics"
+  description="Operations research & business analytics | Supply chain and logistics. Logistics analytics, demand planning, and supply chain optimization — Nasiya Pervez."
+>
+  <!-- HERO -->
   <section class="hero">
-    <div class="hero-content">
-      <div class="text">
-        <h1>Nasiya Pervez</h1>
-        <h2>Data-Driven Operations Research & Business Analyst </h2>
-        
-        <div class="tags">
-          <span class="tag">Operations Research</span>
-          <span class="tag">Business Analytics</span>
-          <span class="tag">Data Analysis</span>
-          <span class="tag">SAP ERP</span>
-          <span class="tag">Python</span>
-          <span class="tag">Machine Learning</span>
-        </div>
-        
-        <p class="bio">
-          👋 Hi, thank you for visiting my website. I'm a data-driven operations research and business analytics professional with experience in business development, talent acquisition, and strategic growth. I enjoy turning complex datasets into insights that drive smarter decisions and meaningful outcomes.
-        </p>
-        
-        <div class="cta-buttons">
-          <a href="/contact" class="btn btn-primary">Contact Me</a>
-          <a href="/blog" class="btn btn-secondary">Read Blog</a>
-        </div>
+    <div class="hero-text">
+      <p class="eyebrow reveal">Operations Research · Business Analytics</p>
+
+      <h1 class="reveal" style="--d: 0.05s">
+        Hi, I'm Nasiya<span class="dot">.</span>
+      </h1>
+
+      <p class="role-line reveal" style="--d: 0.1s">
+        I turn data into
+        <span class="rotator" data-words='["Logistics Analytics","Demand Planning","Supply Chain Optimization","Data-Driven Decisions"]'>Logistics Analytics</span>
+      </p>
+
+      <p class="bio reveal" style="--d: 0.15s">
+        A data-driven operations research and business analytics professional based in
+        Magdeburg, Germany. I've supported global recruitment and international sales
+        with data — and I'm building toward a career in supply chain, where optimization
+        and logistics analytics turn complex decisions into meaningful outcomes.
+      </p>
+
+      <div class="btn-group reveal" style="--d: 0.2s">
+        <a href="/contact" class="btn btn-primary">Get in touch</a>
+        <a href="/experience" class="btn btn-ghost">See experience</a>
       </div>
-      
-      <div class="photo">
+    </div>
+
+    <div class="hero-photo reveal" style="--d: 0.2s">
+      <div class="photo-ring">
         <img src="/images/profile.jpg" alt="Nasiya Pervez" />
       </div>
     </div>
   </section>
 
+  <!-- SKILLS -->
+  <section id="skills" class="section skills">
+    <p class="eyebrow reveal">Proficiency</p>
+    <h2 class="reveal">Tools I work with</h2>
+
+    <div class="skills-grid">
+      <div class="skill reveal" style="--d: 0.05s">
+        <span class="skill-name">SAP S/4HANA — Cloud Public Edition</span>
+        <span class="skill-tag">in progress</span>
+        <div class="meter"><span class="meter-fill" style="width: 45%"></span></div>
+      </div>
+      <div class="skill reveal" style="--d: 0.1s">
+        <span class="skill-name">Python — pandas, scikit-learn</span>
+        <div class="meter"><span class="meter-fill blue" style="width: 80%"></span></div>
+      </div>
+      <div class="skill reveal" style="--d: 0.15s">
+        <span class="skill-name">SQL — databases (Masters coursework)</span>
+        <div class="meter"><span class="meter-fill" style="width: 75%"></span></div>
+      </div>
+      <div class="skill reveal" style="--d: 0.2s">
+        <span class="skill-name">Excel · Power BI · Tableau</span>
+        <div class="meter"><span class="meter-fill blue" style="width: 85%"></span></div>
+      </div>
+      <div class="skill reveal" style="--d: 0.25s">
+        <span class="skill-name">Demand Forecasting & Inventory Analytics</span>
+        <div class="meter"><span class="meter-fill" style="width: 70%"></span></div>
+      </div>
+      <div class="skill reveal" style="--d: 0.3s">
+        <span class="skill-name">A/B Testing & Optimization</span>
+        <div class="meter"><span class="meter-fill blue" style="width: 78%"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED POSTS -->
+  <section id="posts" class="section posts">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow reveal">Writing</p>
+        <h2 class="reveal">Latest from the blog</h2>
+      </div>
+      <a href="/blog" class="text-link reveal">All posts →</a>
+    </div>
+
+    <div class="post-grid">
+      {
+        featured.map((post, i) => (
+          <a class="post-card reveal" style={`--d: ${i * 0.08}s`} href={post.link} target="_blank" rel="noopener">
+            <time>{new Date(post.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
+            <h3>{post.title}</h3>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta-band reveal">
+    <div class="cta-inner">
+      <h2>Open to supply chain challenges</h2>
+      <p>Logistics, planning, forecasting — or a role where data meets people and decisions.</p>
+      <div class="btn-group">
+        <a href="/contact" class="btn btn-primary">Contact me</a>
+        <a href="https://linkedin.com/in/nasiyapervez" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
   <style>
+    /* ---------- Hero ---------- */
     .hero {
-      padding-top: 40px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 60px;
+      align-items: center;
+      padding: 56px 0 32px;
     }
-    
-    .hero-content {
+
+    .hero-text h1 {
+      margin-bottom: 6px;
+    }
+
+    .hero-text .dot {
+      color: var(--emerald);
+    }
+
+    .role-line {
+      font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .rotator {
+      color: var(--emerald);
+      display: inline-block;
+      min-width: min(420px, 90vw);
+      text-align: left;
+      transition: opacity 0.25s ease;
+    }
+
+    .rotator.fade-out {
+      opacity: 0;
+    }
+
+    .hero-text .bio {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .hero-text .btn-group {
+      margin-top: 28px;
+    }
+
+    .hero-photo {
+      display: flex;
+      justify-content: center;
+    }
+
+    .photo-ring {
+      position: relative;
+      padding: 10px;
+      border-radius: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.5), 0 0 46px rgba(16, 185, 129, 0.06);
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .photo-ring:hover {
+      border-color: rgba(16, 185, 129, 0.4);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.5), 0 0 52px rgba(16, 185, 129, 0.12);
+    }
+
+    .photo-ring img {
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      height: 360px;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 36px;
+        text-align: center;
+        padding-top: 32px;
+      }
+
+      .hero-text .rotator {
+        text-align: center;
+      }
+
+      .hero-text .btn-group {
+        justify-content: center;
+      }
+
+      .hero-photo img {
+        max-width: 240px;
+        height: 300px;
+        margin: 0 auto;
+      }
+    }
+
+    /* ---------- Skills ---------- */
+    .skills {
+      border-top: 1px solid var(--border);
+      margin-top: 24px;
+    }
+
+    .skills h2 {
+      margin-bottom: 32px;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .skill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+    }
+
+    .skill-name {
+      display: block;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .skill-tag {
+      float: right;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--emerald);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 20px;
+      padding: 2px 10px;
+    }
+
+    .meter {
+      height: 6px;
+      border-radius: 10px;
+      background: var(--bg-soft);
+      overflow: hidden;
+    }
+
+    .meter-fill {
+      display: block;
+      height: 100%;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--emerald), var(--blue));
+    }
+
+    .meter-fill.blue {
+      background: var(--blue);
+    }
+
+    /* ---------- Posts ---------- */
+    .section-head {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      gap: 60px;
-    }
-    
-    .text {
-      flex: 1;
-    }
-    
-    .photo {
-      flex-shrink: 0;
-    }
-    
-    .photo img {
-      width: 280px;
-      height: 280px;
-      border-radius: 20px;
-      object-fit: cover;
-      border: 2px solid #1a1a1a;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .photo img:hover {
-      transform: scale(1.02);
-      box-shadow: 0 10px 40px rgba(255, 255, 255, 0.1);
-    }
-    
-    .tags {
-      display: flex;
-      gap: 10px;
+      align-items: flex-end;
       flex-wrap: wrap;
-      margin: 24px 0;
-      animation: fadeInUp 0.6s ease-out backwards;
-      animation-delay: 0.4s;
+      gap: 12px;
+      margin-bottom: 28px;
     }
-    
-    .tag {
-      padding: 6px 14px;
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
+
+    .text-link {
+      color: var(--emerald);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .text-link:hover {
+      text-decoration: underline;
+    }
+
+    .post-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .post-card {
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .post-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--emerald);
+    }
+
+    .post-card time {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--faint);
+      margin-bottom: 8px;
+    }
+
+    .post-card h3 {
+      font-size: 1.05rem;
+      line-height: 1.4;
+    }
+
+    /* ---------- CTA ---------- */
+    .cta-band {
+      margin-top: 48px;
+    }
+
+    .cta-inner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(59, 130, 246, 0.12));
+      border: 1px solid var(--border);
       border-radius: 20px;
-      font-size: 0.85rem;
-      color: #888;
-      transition: all 0.3s ease;
+      padding: 48px 40px;
+      text-align: center;
     }
-    
-    .tag:hover {
-      background: #2a2a2a;
-      color: #fff;
-      border-color: #444;
+
+    .cta-inner h2 {
+      margin-bottom: 8px;
     }
-    
-    .bio {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: #999;
-      max-width: 500px;
+
+    .cta-inner p {
+      margin-bottom: 24px;
     }
-    
-    .cta-buttons {
-      display: flex;
-      gap: 16px;
-      margin-top: 32px;
-      animation: fadeInUp 0.6s ease-out backwards;
-      animation-delay: 0.5s;
-    }
-    
-    .btn {
-      display: inline-block;
-      padding: 14px 28px;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-    
-    .btn-primary {
-      background: #fff;
-      color: #0a0a0a;
-    }
-    
-    .btn-primary:hover {
-      background: #ddd;
-      transform: translateY(-2px);
-    }
-    
-    .btn-secondary {
-      background: #1a1a1a;
-      color: #fff;
-      border: 1px solid #2a2a2a;
-    }
-    
-    .btn-secondary:hover {
-      background: #2a2a2a;
-      transform: translateY(-2px);
-    }
-    
-    @media (max-width: 768px) {
-      .hero-content {
-        flex-direction: column-reverse;
-        text-align: center;
-      }
-      
-      .text {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .tags {
-        justify-content: center;
-      }
-      
-      .bio {
-        text-align: center;
-      }
-      
-      .cta-buttons {
-        justify-content: center;
-      }
-      
-      .photo img {
-        width: 200px;
-        height: 200px;
-      }
+
+    .cta-inner .btn-group {
+      justify-content: center;
     }
   </style>
 </Base>
