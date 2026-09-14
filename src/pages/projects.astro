@@ -1,0 +1,166 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Base
+  title="Projects"
+  description="Projects — work in operations research and business analytics, told as writeups with a supply-chain angle."
+>
+  <section class="page-head reveal">
+    <p class="eyebrow">Projects</p>
+    <h1>Projects, Beyond the Deliverables</h1>
+    <p class="lede">Deep dives into OR and analytics problems I took on. Each page tells the story — the thinking, the results, and why it points at supply chain.</p>
+  </section>
+
+  <section class="section project-grid">
+    {
+      projects.map((project, index) => (
+        <a class="project-card reveal" style={`--d: ${Math.min(index * 0.05, 0.4)}s`} href={`/projects/${project.id}`}>
+          <div class={`cover cover-${index % 4}`}>
+            {
+              project.data.image ? (
+                <img src={project.data.image} alt={project.data.title} loading="lazy" />
+              ) : (
+                <span class="cover-title">{project.data.title}</span>
+              )
+            }
+          </div>
+          <div class="card-body">
+            <time>{project.data.pubDate.toLocaleDateString('en-US', { year: 'numeric' })}</time>
+            <h2>{project.data.title}</h2>
+            <p>{project.data.description}</p>
+            {
+              project.data.tags.length > 0 && (
+                <div class="tag-row">
+                  {project.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+                </div>
+              )
+            }
+            <span class="read-more">Read the writeup →</span>
+          </div>
+        </a>
+      ))
+    }
+  </section>
+
+  <style>
+    .page-head {
+      padding: 24px 0 8px;
+    }
+
+    .lede {
+      max-width: 640px;
+      font-size: 1.05rem;
+      margin-top: 10px;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 22px;
+      margin-top: 24px;
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--emerald);
+    }
+
+    .cover {
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .cover-0 { background: linear-gradient(135deg, var(--emerald), var(--blue)); }
+    .cover-1 { background: linear-gradient(135deg, #0d8f63, #2563eb); }
+    .cover-2 { background: linear-gradient(135deg, #065f46, var(--emerald)); }
+    .cover-3 { background: linear-gradient(135deg, #1e40af, var(--blue)); }
+
+    .cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cover-title {
+      color: var(--white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-align: center;
+      padding: 0 8px;
+    }
+
+    .card-body {
+      padding: 20px 22px 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-body time {
+      font-size: 0.8rem;
+      color: var(--faint);
+      margin-bottom: 8px;
+    }
+
+    .card-body h2 {
+      font-size: 1.1rem;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .card-body p {
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      color: var(--emerald);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      background: rgba(16, 185, 129, 0.08);
+      border-radius: 20px;
+      padding: 2px 10px;
+    }
+
+    .read-more {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--emerald);
+    }
+
+    @media (max-width: 480px) {
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</Base>

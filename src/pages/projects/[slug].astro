@@ -1,0 +1,227 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects')).filter((p) => !p.data.draft);
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<Base
+  title={project.data.title}
+  description={project.data.description}
+>
+  <article class="header reveal">
+    <p class="eyebrow">Project</p>
+    <h1>{project.data.title}</h1>
+    <div class="meta">
+      <time>{project.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</time>
+      {
+        project.data.tags.length > 0 && (
+          <div class="tag-row">
+            {project.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+          </div>
+        )
+      }
+    </div>
+  </article>
+
+  {
+    project.data.image && (
+      <figure class="hero-image reveal" style="--d: 0.1s">
+        <img src={project.data.image} alt={project.data.title} />
+      </figure>
+    )
+  }
+
+  <div class="prose reveal" style="--d: 0.15s">
+    <Content />
+  </div>
+
+  {
+    project.data.github && (
+      <div class="actions reveal">
+        <a href={project.data.github} target="_blank" rel="noopener" class="btn btn-ghost">View code on GitHub →</a>
+      </div>
+    )
+  }
+
+  <section class="next reveal">
+    <a href="/projects" class="text-link">← All projects</a>
+  </section>
+
+  <style>
+    .header {
+      padding: 24px 0 8px;
+    }
+
+    .header h1 {
+      max-width: 720px;
+      margin-bottom: 10px;
+    }
+
+    .meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .meta time {
+      font-size: 0.9rem;
+      color: var(--faint);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      color: var(--emerald);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      background: rgba(16, 185, 129, 0.08);
+      border-radius: 20px;
+      padding: 2px 10px;
+    }
+
+    .hero-image {
+      margin: 28px 0 0;
+    }
+
+    .hero-image img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 6;
+      object-fit: cover;
+    }
+
+    .prose {
+      margin: 28px auto 0;
+      max-width: 800px;
+      padding: 0 12px;
+    }
+
+    .prose h2 {
+      font-size: 1.35rem;
+      margin: 36px 0 12px;
+      color: var(--white);
+    }
+
+    .prose h3 {
+      font-size: 1.05rem;
+      margin: 28px 0 8px;
+      color: var(--white);
+    }
+
+    .prose p,
+    .prose li,
+    .prose blockquote {
+      margin-bottom: 16px;
+      color: var(--muted);
+      font-size: 1.02rem;
+      text-align: justify;
+      text-justify: inter-word;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+    }
+
+    .prose ul,
+    .prose ol {
+      margin: 0 0 16px;
+      padding-left: 24px;
+    }
+
+    .prose li {
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .prose strong {
+      color: var(--text);
+    }
+
+    .prose a {
+      color: var(--emerald);
+      text-decoration: underline;
+    }
+
+    .prose blockquote {
+      border-left: 3px solid var(--emerald);
+      padding-left: 16px;
+      color: var(--faint);
+      font-style: italic;
+      margin: 20px 0;
+    }
+
+    .prose code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.9em;
+      color: var(--emerald);
+      background: var(--bg-soft);
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    .prose pre {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin: 20px 0;
+      overflow-x: auto;
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    .prose pre code {
+      background: none;
+      padding: 0;
+      font-size: inherit;
+      color: var(--text);
+    }
+
+    .prose img {
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin: 20px 0;
+    }
+
+    .prose hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 32px 0;
+    }
+
+    .actions {
+      margin-top: 36px;
+    }
+
+    .next {
+      margin-top: 48px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+    }
+
+    .text-link {
+      color: var(--emerald);
+      font-weight: 600;
+    }
+
+    .text-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</Base>
