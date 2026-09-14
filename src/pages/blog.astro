@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { getSubstackPosts } from '../lib/substack';
 
-const posts = await getSubstackPosts();
+const posts = getSubstackPosts();
 ---
 
 <Base
